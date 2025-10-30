@@ -9,10 +9,10 @@ function Home() {
         <div className="container">
           <div className="hero-content fade-in">
             <h1 className="hero-title">
-              Hola, soy <span className="highlight">Desarrollador Web</span>
+              Hola, soy <span className="highlight">Ernesto Vázquez</span>
             </h1>
             <p className="hero-subtitle">
-              Creando experiencias digitales increíbles con React, JavaScript y tecnologías modernas
+              QA Automation Engineer | Especialista en Cypress, Selenium, Playwright y Pruebas E2E
             </p>
             <div className="hero-buttons">
               <Link to="/projects" className="btn">
@@ -29,27 +29,27 @@ function Home() {
       {/* Skills Section */}
       <section className="skills-section section">
         <div className="container">
-          <h2 className="section-title">Tecnologías</h2>
+          <h2 className="section-title">Especialidades</h2>
           <div className="skills-grid">
             <div className="skill-card card">
-              <div className="skill-icon">⚛️</div>
-              <h3>React</h3>
-              <p>Desarrollo de interfaces modernas y componentes reutilizables</p>
-            </div>
-            <div className="skill-card card">
-              <div className="skill-icon">💻</div>
-              <h3>JavaScript</h3>
-              <p>ES6+, desarrollo frontend y backend con Node.js</p>
-            </div>
-            <div className="skill-card card">
-              <div className="skill-icon">🎨</div>
-              <h3>CSS</h3>
-              <p>Diseño responsivo, animaciones y layouts modernos</p>
+              <div className="skill-icon">🤖</div>
+              <h3>Automatización de Pruebas</h3>
+              <p>Cypress, Selenium, Playwright - Pruebas E2E y regresión automatizadas</p>
             </div>
             <div className="skill-card card">
               <div className="skill-icon">🔧</div>
-              <h3>Herramientas</h3>
-              <p>Git, Vite, npm, y más herramientas de desarrollo</p>
+              <h3>Testing de APIs</h3>
+              <p>Postman, Bruno, JMeter, Swagger - Validación de servicios REST</p>
+            </div>
+            <div className="skill-card card">
+              <div className="skill-icon">📊</div>
+              <h3>QA & Metodologías Ágiles</h3>
+              <p>Scrum, Jira, Confluence, X-Ray, Zephyr - Gestión de calidad</p>
+            </div>
+            <div className="skill-card card">
+              <div className="skill-icon">🚀</div>
+              <h3>CI/CD & DevOps</h3>
+              <p>Git/GitHub/GitLab, Jenkins, OCP/Grafana - Integración continua</p>
             </div>
           </div>
         </div>
@@ -59,8 +59,8 @@ function Home() {
       <section className="cta-section section">
         <div className="container">
           <div className="cta-content card">
-            <h2>¿Tienes un proyecto en mente?</h2>
-            <p>Hablemos sobre cómo puedo ayudarte a hacer realidad tus ideas</p>
+            <h2>¿Buscas mejorar la calidad de tu producto?</h2>
+            <p>Más de 4 años asegurando la calidad en banca, fintech y entornos ágiles</p>
             <Link to="/about" className="btn">
               Contáctame
             </Link>

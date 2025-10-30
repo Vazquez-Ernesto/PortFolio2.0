@@ -8,9 +8,12 @@ function Footer() {
       <div className="container">
         <div className="footer-content">
           <div className="footer-section">
-            <h3>Portfolio 2.0</h3>
+            <h3>Ernesto Vázquez</h3>
             <p className="text-muted">
-              Desarrollador Web apasionado por crear experiencias digitales increíbles.
+              QA Automation Engineer especializado en asegurar la calidad de productos digitales.
+            </p>
+            <p className="text-muted" style={{marginTop: '0.5rem'}}>
+              📍 Buenos Aires, Argentina
             </p>
           </div>
 
@@ -25,10 +28,16 @@ function Footer() {
           </div>
 
           <div className="footer-section">
-            <h4>Sígueme</h4>
+            <h4>Contacto</h4>
             <div className="social-links">
               <a
-                href="https://github.com"
+                href="mailto:ernestoalexisvazquez@gmail.com"
+                aria-label="Email"
+              >
+                Email
+              </a>
+              <a
+                href="https://github.com/Vazquez-Ernesto"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
@@ -36,7 +45,7 @@ function Footer() {
                 GitHub
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/ernestoavazquez"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -44,19 +53,17 @@ function Footer() {
                 LinkedIn
               </a>
               <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
+                href="tel:+543704824222"
+                aria-label="Teléfono"
               >
-                Twitter
+                Teléfono
               </a>
             </div>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; {currentYear} Portfolio 2.0. Hecho con React. Todos los derechos reservados.</p>
+          <p>&copy; {currentYear} Ernesto Vázquez - QA Automation Engineer. Hecho con React. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
