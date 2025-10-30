@@ -1,8 +1,26 @@
 .blog-hero {
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  /* Gradiente más profundo y suave hacia el negro/bordó */
+  background:
+    radial-gradient(1000px 300px at 80% -10%, rgba(255, 26, 75, 0.25), transparent 60%),
+    radial-gradient(1200px 400px at 10% 0%, rgba(177, 15, 46, 0.25), transparent 65%),
+    linear-gradient(180deg, rgba(177, 15, 46, 1) 0%, rgba(177, 15, 46, 0.85) 35%, rgba(19, 19, 22, 0.85) 70%, rgba(11, 11, 12, 1) 100%);
   color: white;
   text-align: center;
   padding: var(--spacing-xxl) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Desvanecido inferior para que la sección siguiente se fusione en negro/bordó */
+.blog-hero::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(11, 11, 12, 0) 0%, rgba(11, 11, 12, 0.6) 50%, rgba(11, 11, 12, 1) 100%);
+  pointer-events: none;
 }
 
 .blog-hero h1 {
