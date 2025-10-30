@@ -2,8 +2,10 @@ import './About.css'
 
 function About() {
   const skills = [
-    'HTML5', 'CSS3', 'JavaScript', 'React', 'Git', 'Responsive Design',
-    'Node.js', 'Vite', 'React Router', 'ES6+', 'npm', 'REST APIs'
+    'Cypress', 'Selenium', 'Playwright', 'JavaScript', 'Python', 'TypeScript',
+    'Java', 'Postman', 'Bruno', 'JMeter', 'SQL', 'Git/GitHub/GitLab',
+    'Jira', 'Confluence', 'X-Ray', 'Zephyr', 'Jenkins', 'CI/CD',
+    'Scrum', 'Agile', 'API Testing', 'E2E Testing', 'Swagger', 'OCP/Grafana'
   ]
 
   return (
@@ -18,19 +20,25 @@ function About() {
               </div>
             </div>
             <div className="about-text">
-              <h2>Hola! Soy un Desarrollador Web</h2>
+              <h2>Ernesto Alexis Vázquez</h2>
+              <h3 style={{color: 'var(--primary-color)', marginBottom: 'var(--spacing-md)'}}>
+                QA Automation Engineer | Buenos Aires, Argentina
+              </h3>
               <p>
-                Hace 2 años comencé mi viaje en el desarrollo web con HTML, CSS y JavaScript.
-                Hoy estoy evolucionando mis habilidades con React y tecnologías modernas.
+                Apasionado por la tecnología y el arte de resolver problemas, con más de 4 años
+                de experiencia asegurando la calidad de productos digitales en banca, fintech y
+                entornos ágiles.
               </p>
               <p>
-                Me apasiona crear experiencias digitales que sean tanto funcionales como
-                hermosas. Cada proyecto es una oportunidad para aprender algo nuevo y
-                mejorar mis habilidades.
+                Me especializo en automatización de pruebas E2E, regresión y APIs, utilizando
+                herramientas como Cypress, Selenium y Playwright. Implementé soluciones que
+                redujeron tiempos de regresión en un 40% y mejoraron la cobertura de pruebas en
+                entornos críticos como Getnet (Banco Santander) y Nave (Banco Galicia).
               </p>
               <p>
-                Este portfolio es la versión 2.0 de mi primer proyecto, demostrando mi
-                crecimiento y dedicación al aprendizaje continuo en desarrollo web.
+                Mi enfoque está en la mejora continua, la colaboración con equipos
+                multidisciplinarios y la entrega de productos de alta calidad que realmente
+                generen valor para los usuarios.
               </p>
             </div>
           </div>
@@ -52,16 +60,16 @@ function About() {
 
       <section className="experience section">
         <div className="container">
-          <h2 className="section-title">Mi Trayectoria</h2>
+          <h2 className="section-title">Experiencia Profesional</h2>
           <div className="timeline">
             <div className="timeline-item card">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
-                <h3>Presente - Aprendizaje Continuo</h3>
-                <p className="timeline-date">2025</p>
+                <h3>QA Automation Engineer - Telecom Argentina</h3>
+                <p className="timeline-date">Junio 2025 - Presente (Contratado por CFOTech)</p>
                 <p>
-                  Desarrollando Portfolio 2.0 con React, mejorando habilidades en
-                  componentes modernos y state management.
+                  Responsable de asegurar la calidad funcional de una aplicación core para
+                  tasación y mediación, dentro del ecosistema de Telecom Argentina.
                 </p>
               </div>
             </div>
@@ -69,11 +77,13 @@ function About() {
             <div className="timeline-item card">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
-                <h3>Primeros Proyectos</h3>
-                <p className="timeline-date">2023</p>
+                <h3>QA Analyst Automation - Getnet Argentina</h3>
+                <p className="timeline-date">Diciembre 2024 - Junio 2025 (Contratado por RHT)</p>
                 <p>
-                  Creé mi primer portfolio con HTML, CSS y JavaScript vanilla.
-                  Aprendí los fundamentos del desarrollo web.
+                  Trabajo en Getnet (Banco Santander) en el modelo de negocio Agrupador.
+                  Participo en tres iniciativas clave: facturación de terminales (POSNET),
+                  homologación de billeteras digitales para pagos QR, y onboarding a través
+                  de un nuevo canal de ventas.
                 </p>
               </div>
             </div>
@@ -81,11 +91,27 @@ function About() {
             <div className="timeline-item card">
               <div className="timeline-dot"></div>
               <div className="timeline-content">
-                <h3>Inicio en Programación</h3>
-                <p className="timeline-date">2023</p>
+                <h3>QA Analyst - Nave Negocios</h3>
+                <p className="timeline-date">Diciembre 2022 - Diciembre 2024 (Contratado por TCS)</p>
                 <p>
-                  Comencé mi viaje en el desarrollo web aprendiendo HTML, CSS y
-                  JavaScript desde cero.
+                  Proyecto Nave (Banco Galicia), asegurando su calidad a través de pruebas
+                  exhaustivas y metodologías ágiles. Realización de pruebas E2E, pruebas de
+                  regresión, exploratorias y validación de funcionalidades clave. Gestión de
+                  bugs y reportes en entornos de pre-producción (UAT).
+                </p>
+              </div>
+            </div>
+
+            <div className="timeline-item card">
+              <div className="timeline-dot"></div>
+              <div className="timeline-content">
+                <h3>Quality Assurance Analyst - UPEX</h3>
+                <p className="timeline-date">Junio 2021 - Enero 2022</p>
+                <p>
+                  Moderador de la Academia Upex. Inducción de nuevos miembros, corrección de
+                  User Stories, mentoría en metodologías ágiles (Scrum). Trabajo con Jira,
+                  X-ray, diseño de Test Sets, Test Cases y Test Execution. Pruebas exploratorias,
+                  smoke y regresión.
                 </p>
               </div>
             </div>
@@ -99,14 +125,17 @@ function About() {
             <h2>Conecta Conmigo</h2>
             <p>Estoy siempre abierto a nuevas oportunidades y colaboraciones</p>
             <div className="contact-links">
-              <a href="mailto:tu-email@ejemplo.com" className="contact-link">
-                <span>📧</span> Email
+              <a href="mailto:ernestoalexisvazquez@gmail.com" className="contact-link">
+                <span>📧</span> ernestoalexisvazquez@gmail.com
               </a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="contact-link">
+              <a href="https://github.com/Vazquez-Ernesto" target="_blank" rel="noopener noreferrer" className="contact-link">
                 <span>💻</span> GitHub
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="contact-link">
+              <a href="https://www.linkedin.com/in/ernestoavazquez" target="_blank" rel="noopener noreferrer" className="contact-link">
                 <span>💼</span> LinkedIn
+              </a>
+              <a href="tel:+543704824222" className="contact-link">
+                <span>📱</span> +54 370 482 4222
               </a>
             </div>
           </div>

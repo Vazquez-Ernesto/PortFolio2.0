@@ -7,61 +7,61 @@ function Projects() {
   const projects = [
     {
       id: 1,
-      title: 'Portfolio 1.0',
-      description: 'Mi primer portfolio creado con HTML, CSS y JavaScript vanilla. Donde comencé mi viaje en el desarrollo web.',
-      category: 'web',
+      title: 'Portfolio QA Automation 1.0',
+      description: 'Mi primer portfolio como QA Automation Engineer, mostrando mis proyectos de testing y automatización.',
+      category: 'portfolio',
       technologies: ['HTML', 'CSS', 'JavaScript'],
-      image: '🌐',
-      link: '#',
-      github: '#'
+      image: '🧪',
+      link: 'https://vazquez-ernesto.github.io/-Portafolio-QA-Automation/',
+      github: 'https://github.com/Vazquez-Ernesto/-Portafolio-QA-Automation'
     },
     {
       id: 2,
-      title: 'Portfolio 2.0',
-      description: 'Versión mejorada de mi portfolio usando React, con diseño moderno y mejores prácticas.',
-      category: 'web',
-      technologies: ['React', 'CSS', 'Vite'],
-      image: '⚛️',
+      title: 'Automatización E2E - Getnet',
+      description: 'Framework de pruebas automatizadas E2E para facturación de terminales POSNET y homologación de billeteras digitales.',
+      category: 'automation',
+      technologies: ['Cypress', 'JavaScript', 'CI/CD'],
+      image: '🤖',
       link: '#',
       github: '#'
     },
     {
       id: 3,
-      title: 'App de Tareas',
-      description: 'Aplicación para gestionar tareas diarias con funcionalidad CRUD completa.',
-      category: 'app',
-      technologies: ['React', 'LocalStorage', 'CSS'],
-      image: '✅',
+      title: 'Testing Suite - Nave Negocios',
+      description: 'Suite completa de pruebas de regresión y exploratorias para Nave (Banco Galicia). Reducción del 40% en tiempos de regresión.',
+      category: 'automation',
+      technologies: ['Selenium', 'Python', 'Jira', 'X-Ray'],
+      image: '🔧',
       link: '#',
       github: '#'
     },
     {
       id: 4,
-      title: 'Landing Page',
-      description: 'Diseño responsivo de landing page para negocio local con formulario de contacto.',
-      category: 'web',
-      technologies: ['HTML', 'CSS', 'JavaScript'],
-      image: '🎨',
+      title: 'API Testing Framework',
+      description: 'Framework de automatización para pruebas de APIs REST con validación de contratos y performance.',
+      category: 'api',
+      technologies: ['Postman', 'JavaScript', 'Newman', 'JMeter'],
+      image: '🔌',
       link: '#',
       github: '#'
     },
     {
       id: 5,
-      title: 'Blog Personal',
-      description: 'Sistema de blog con gestión de posts y comentarios.',
-      category: 'blog',
-      technologies: ['React', 'React Router', 'CSS'],
-      image: '📝',
+      title: 'Playwright E2E Testing',
+      description: 'Implementación de pruebas E2E con Playwright y TypeScript para aplicaciones web modernas.',
+      category: 'automation',
+      technologies: ['Playwright', 'TypeScript', 'GitHub Actions'],
+      image: '🎭',
       link: '#',
       github: '#'
     },
     {
       id: 6,
-      title: 'Dashboard Analítico',
-      description: 'Panel de control con gráficos y visualización de datos.',
-      category: 'app',
-      technologies: ['React', 'JavaScript', 'CSS'],
-      image: '📊',
+      title: 'CI/CD Pipeline QA',
+      description: 'Pipeline de integración continua con ejecución automatizada de pruebas y reportes en Jenkins.',
+      category: 'devops',
+      technologies: ['Jenkins', 'Git', 'Selenium', 'Docker'],
+      image: '🚀',
       link: '#',
       github: '#'
     }
@@ -75,9 +75,9 @@ function Projects() {
     <div className="projects">
       <section className="projects-hero section">
         <div className="container">
-          <h1 className="fade-in">Mis Proyectos</h1>
+          <h1 className="fade-in">Mis Proyectos de QA Automation</h1>
           <p className="projects-subtitle">
-            Una colección de mis trabajos y proyectos de aprendizaje
+            Frameworks de automatización, testing de APIs y soluciones de calidad
           </p>
         </div>
       </section>
@@ -92,22 +92,28 @@ function Projects() {
               Todos
             </button>
             <button
-              className={`filter-btn ${filter === 'web' ? 'active' : ''}`}
-              onClick={() => setFilter('web')}
+              className={`filter-btn ${filter === 'automation' ? 'active' : ''}`}
+              onClick={() => setFilter('automation')}
             >
-              Web
+              Automation
             </button>
             <button
-              className={`filter-btn ${filter === 'app' ? 'active' : ''}`}
-              onClick={() => setFilter('app')}
+              className={`filter-btn ${filter === 'api' ? 'active' : ''}`}
+              onClick={() => setFilter('api')}
             >
-              Apps
+              API Testing
             </button>
             <button
-              className={`filter-btn ${filter === 'blog' ? 'active' : ''}`}
-              onClick={() => setFilter('blog')}
+              className={`filter-btn ${filter === 'devops' ? 'active' : ''}`}
+              onClick={() => setFilter('devops')}
             >
-              Blog
+              DevOps
+            </button>
+            <button
+              className={`filter-btn ${filter === 'portfolio' ? 'active' : ''}`}
+              onClick={() => setFilter('portfolio')}
+            >
+              Portfolio
             </button>
           </div>
 
@@ -128,22 +134,31 @@ function Projects() {
                     ))}
                   </div>
                   <div className="project-links">
-                    <a
-                      href={project.link}
-                      className="project-link"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Ver Demo
-                    </a>
-                    <a
-                      href={project.github}
-                      className="project-link"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      GitHub
-                    </a>
+                    {project.link !== '#' && (
+                      <a
+                        href={project.link}
+                        className="project-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ver Proyecto
+                      </a>
+                    )}
+                    {project.github !== '#' && (
+                      <a
+                        href={project.github}
+                        className="project-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        GitHub
+                      </a>
+                    )}
+                    {project.link === '#' && project.github === '#' && (
+                      <span className="project-link" style={{opacity: 0.6, cursor: 'default'}}>
+                        Proyecto Privado
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
