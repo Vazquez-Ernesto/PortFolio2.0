@@ -1,0 +1,25 @@
+{
+  "name": "portfolio2.0",
+  "version": "1.0.0",
+  "description": "Este portfolio es una update de un blog-porfolio que lo cree con html, css y js dando mi primeros pasos en la programacion, hoy 2 años despues quiero hacer algo mas profesional con el framework llamado REACT, utilizando IAS para que me ayude con la infraestructura, creatividad y codigo. El piloto soy yo y yo se a donde voy.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:40533/git/Vazquez-Ernesto/PortFolio2.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.5",
+    "vite": "^7.1.12"
+  }
+}
