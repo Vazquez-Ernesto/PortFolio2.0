@@ -7,63 +7,33 @@ function Projects() {
   const projects = [
     {
       id: 1,
-      title: 'Portfolio QA Automation 1.0',
-      description: 'Mi primer portfolio como QA Automation Engineer, mostrando mis proyectos de testing y automatización.',
+      title: 'Blog React',
+      description: 'Blog personal construido con React y desplegado en GitHub Pages.',
       category: 'portfolio',
-      technologies: ['HTML', 'CSS', 'JavaScript'],
-      image: '🧪',
-      link: 'https://vazquez-ernesto.github.io/-Portafolio-QA-Automation/',
-      github: 'https://github.com/Vazquez-Ernesto/-Portafolio-QA-Automation'
+      technologies: ['React', 'Vite', 'CSS'],
+      image: '📰',
+      link: 'https://vazquez-ernesto.github.io/blog-react/',
+      github: '#'
     },
     {
       id: 2,
-      title: 'Automatización E2E - Getnet',
-      description: 'Framework de pruebas automatizadas E2E para facturación de terminales POSNET y homologación de billeteras digitales.',
+      title: 'Selenium Java Automation',
+      description: 'Proyecto de pruebas E2E con Selenium, Java y Cucumber.',
       category: 'automation',
-      technologies: ['Cypress', 'JavaScript', 'CI/CD'],
-      image: '🤖',
+      technologies: ['Selenium', 'Java', 'Cucumber', 'JUnit'],
+      image: '🧪',
       link: '#',
-      github: '#'
+      github: 'https://github.com/Vazquez-Ernesto/selenium-java-automation'
     },
     {
       id: 3,
-      title: 'Testing Suite - Nave Negocios',
-      description: 'Suite completa de pruebas de regresión y exploratorias para Nave (Banco Galicia). Reducción del 40% en tiempos de regresión.',
+      title: 'Playwright E2E - Swabslabs',
+      description: 'Proyecto Playwright con Page Objects, tests e informes HTML.',
       category: 'automation',
-      technologies: ['Selenium', 'Python', 'Jira', 'X-Ray'],
-      image: '🔧',
-      link: '#',
-      github: '#'
-    },
-    {
-      id: 4,
-      title: 'API Testing Framework',
-      description: 'Framework de automatización para pruebas de APIs REST con validación de contratos y performance.',
-      category: 'api',
-      technologies: ['Postman', 'JavaScript', 'Newman', 'JMeter'],
-      image: '🔌',
-      link: '#',
-      github: '#'
-    },
-    {
-      id: 5,
-      title: 'Playwright E2E Testing',
-      description: 'Implementación de pruebas E2E con Playwright y TypeScript para aplicaciones web modernas.',
-      category: 'automation',
-      technologies: ['Playwright', 'TypeScript', 'GitHub Actions'],
+      technologies: ['Playwright', 'JavaScript', 'GitHub Actions'],
       image: '🎭',
       link: '#',
-      github: '#'
-    },
-    {
-      id: 6,
-      title: 'CI/CD Pipeline QA',
-      description: 'Pipeline de integración continua con ejecución automatizada de pruebas y reportes en Jenkins.',
-      category: 'devops',
-      technologies: ['Jenkins', 'Git', 'Selenium', 'Docker'],
-      image: '🚀',
-      link: '#',
-      github: '#'
+      github: 'https://github.com/Vazquez-Ernesto/proyect-swabslabs-playwright'
     }
   ]
 
