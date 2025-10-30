@@ -25,6 +25,7 @@
 .logo:hover {
   color: var(--secondary-color);
   transform: scale(1.05);
+  text-shadow: var(--neon-glow);
 }
 
 .logo-text {
@@ -59,7 +60,8 @@
   transform: translateX(-50%);
   width: 0;
   height: 2px;
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
+  box-shadow: var(--neon-glow);
   transition: width 0.3s ease;
 }
 
@@ -69,11 +71,12 @@
 }
 
 .nav-links li a:hover {
-  color: var(--primary-color);
+  color: var(--accent-color);
+  text-shadow: var(--neon-glow);
 }
 
 .nav-links li a.active {
-  color: var(--primary-color);
+  color: var(--accent-color);
   font-weight: 600;
 }
 
