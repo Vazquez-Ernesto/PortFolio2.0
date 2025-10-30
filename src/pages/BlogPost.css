@@ -15,6 +15,7 @@
 .back-link:hover {
   transform: translateX(-5px);
   opacity: 0.9;
+  text-shadow: var(--neon-glow);
 }
 
 .post-header {
@@ -49,7 +50,8 @@
 }
 
 .blog-post-content {
-  background-color: white;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   margin-top: calc(-1 * var(--spacing-xl));
 }
 
@@ -67,7 +69,7 @@
   justify-content: center;
   font-size: 8rem;
   margin-bottom: var(--spacing-xl);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg), var(--neon-glow);
 }
 
 .post-body {
@@ -76,7 +78,7 @@
 }
 
 .post-body h2 {
-  color: var(--primary-color);
+  color: var(--accent-color);
   margin-top: var(--spacing-xl);
   margin-bottom: var(--spacing-md);
   font-size: var(--font-size-2xl);
@@ -113,14 +115,15 @@
 }
 
 .post-body pre {
-  background-color: var(--text-color);
-  color: #e5e7eb;
+  background-color: #111216;
+  color: var(--text-color);
   padding: var(--spacing-md);
   border-radius: var(--radius-md);
   overflow-x: auto;
   margin-bottom: var(--spacing-md);
   font-family: var(--font-mono);
   font-size: var(--font-size-sm);
+  box-shadow: var(--shadow-md);
 }
 
 .post-body code {

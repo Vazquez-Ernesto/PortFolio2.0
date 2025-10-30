@@ -6,15 +6,19 @@
 }
 
 :root {
-  /* Colores */
-  --primary-color: #2563eb;
-  --secondary-color: #1e40af;
-  --accent-color: #60a5fa;
-  --text-color: #1f2937;
-  --text-light: #6b7280;
-  --bg-color: #ffffff;
-  --bg-secondary: #f9fafb;
-  --border-color: #e5e7eb;
+  /* Colores - Tema oscuro negro/rojo metálico con acentos neón */
+  --primary-color: #b10f2e; /* rojo oscuro metálico */
+  --secondary-color: #7a0b20; /* rojo más profundo para hover */
+  --accent-color: #ff1a4b; /* rojo neón para acentos */
+  --text-color: #e5e7eb; /* texto principal claro */
+  --text-light: #9ca3af; /* texto secundario */
+  --bg-color: #0b0b0c; /* negro profundo */
+  --bg-secondary: #131316; /* negro/gris grafito */
+  --border-color: #2a2a2e; /* bordes sutiles */
+
+  /* Acentos neón / brillos */
+  --neon-accent: #ff1a4b;
+  --neon-glow: 0 0 10px rgba(255, 26, 75, 0.5), 0 0 20px rgba(255, 26, 75, 0.35);
 
   /* Espaciado */
   --spacing-xs: 0.5rem;
@@ -104,13 +108,14 @@ h3 {
 
 /* Enlaces */
 a {
-  color: var(--primary-color);
+  color: var(--accent-color);
   text-decoration: none;
   transition: var(--transition);
 }
 
 a:hover {
-  color: var(--secondary-color);
+  color: var(--primary-color);
+  text-shadow: var(--neon-glow);
 }
 
 /* Botones */
@@ -131,23 +136,24 @@ a:hover {
 .btn:hover {
   background-color: var(--secondary-color);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg), var(--neon-glow);
 }
 
 .btn-secondary {
   background-color: transparent;
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
 }
 
 .btn-secondary:hover {
   background-color: var(--primary-color);
   color: white;
+  box-shadow: var(--neon-glow);
 }
 
 /* Cards */
 .card {
-  background-color: white;
+  background-color: var(--bg-secondary);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
   box-shadow: var(--shadow-md);
