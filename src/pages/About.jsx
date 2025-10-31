@@ -12,7 +12,7 @@ function About() {
     <div className="about">
       <section className="about-hero section">
         <div className="container">
-          <h1 className="fade-in">Sobre Mí</h1>
+        <h1>Sobre Mí</h1>
           <div className="about-intro">
             <div className="about-image">
               <div className="image-placeholder">
