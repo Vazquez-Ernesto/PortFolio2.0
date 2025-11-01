@@ -115,7 +115,7 @@ body::after {
   position: fixed;
   z-index: 9999; /* AL FRENTE DE TODO */
   pointer-events: none;
-  transition: opacity 20s ease-out; /* Removida transition de transform para mejor control */
+  transition: opacity 0.3 ease-out; /* Removida transition de transform para mejor control */
   will-change: transform, opacity;
 }
 
