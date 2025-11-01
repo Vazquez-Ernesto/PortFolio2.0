@@ -25,20 +25,14 @@ function About() {
                 QA Automation Engineer | Buenos Aires, Argentina
               </h3>
               <p>
-                Apasionado por la tecnología y el arte de resolver problemas, con más de 4 años
-                de experiencia asegurando la calidad de productos digitales en banca, fintech y
-                entornos ágiles.
+               Después de 4 años asegurando la calidad de productos para la banca y fintech, entendí algo clave: <b>no quiero solo probar software, quiero crearlo.</b>
+               Por eso estoy dando el siguiente paso: <b>convertir toda mi experiencia en automatización, análisis y optimización en el motor de mi propia empresa tecnológica.</b> <br />
               </p>
               <p>
-                Me especializo en automatización de pruebas E2E, regresión y APIs, utilizando
-                herramientas como Cypress, Selenium y Playwright. Implementé soluciones que
-                redujeron tiempos de regresión en un 40% y mejoraron la cobertura de pruebas en
-                entornos críticos como Getnet (Banco Santander) y Nave (Banco Galicia).
+               Realice pruebas exploratorias, smoke, regresión y E2E, utilizando herramientas como Cypress, Selenium y Playwright.
               </p>
               <p>
-                Mi enfoque está en la mejora continua, la colaboración con equipos
-                multidisciplinarios y la entrega de productos de alta calidad que realmente
-                generen valor para los usuarios.
+                Soy apasionado por la tecnología y el arte de resolver problemas, con más de 4 años de experiencia en testing y y 2 años de experiencia en automatización de pruebas.
               </p>
             </div>
           </div>
@@ -80,8 +74,8 @@ function About() {
                 <h3>QA Analyst Automation - Getnet Argentina</h3>
                 <p className="timeline-date">Diciembre 2024 - Junio 2025 (Contratado por RHT)</p>
                 <p>
-                  Trabajo en Getnet (Banco Santander) en el modelo de negocio Agrupador.
-                  Participo en tres iniciativas clave: facturación de terminales (POSNET),
+                  Trabaje en Getnet (Banco Santander) en el modelo de negocio Agrupador.
+                  Participé en tres iniciativas clave: facturación de terminales (POSNET),
                   homologación de billeteras digitales para pagos QR, y onboarding a través
                   de un nuevo canal de ventas.
                 </p>
@@ -94,7 +88,7 @@ function About() {
                 <h3>QA Analyst - Nave Negocios</h3>
                 <p className="timeline-date">Diciembre 2022 - Diciembre 2024 (Contratado por TCS)</p>
                 <p>
-                  Proyecto Nave (Banco Galicia), asegurando su calidad a través de pruebas
+                  Proyecto Nave (Banco Galicia), asegurando su calidad funcional a través de pruebas
                   exhaustivas y metodologías ágiles. Realización de pruebas E2E, pruebas de
                   regresión, exploratorias y validación de funcionalidades clave. Gestión de
                   bugs y reportes en entornos de pre-producción (UAT).

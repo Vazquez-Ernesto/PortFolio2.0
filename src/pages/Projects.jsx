@@ -6,6 +6,16 @@ function Projects() {
 
   const projects = [
     {
+      id: 4,
+      title: 'Primer Portfolio - QA Automation',
+      description: 'Mi primer portfolio web desarrollado para mostrar mi experiencia como QA Engineer. Incluye información personal, skills técnicos y experiencia laboral en QA Manual/Automation.',
+      category: 'portfolio',
+      technologies: ['HTML', 'CSS', 'JavaScript', 'GitHub Pages'],
+      image: '🚀',
+      link: 'https://vazquez-ernesto.github.io/-Portafolio-QA-Automation/',
+      github: '#'
+    },
+    {
       id: 1,
       title: 'Blog React',
       description: 'Blog personal construido con React y desplegado en GitHub Pages.',

@@ -110,57 +110,6 @@ body::after {
   }
 }
 
-/* Partículas celulares interactivas creadas dinámicamente por JavaScript */
-.magnifier-particle {
-  position: fixed;
-  z-index: 9999; /* AL FRENTE DE TODO */
-  pointer-events: none;
-  transition: opacity 0.3 ease-out; /* Removida transition de transform para mejor control */
-  will-change: transform, opacity;
-}
-
-/* Lupa base */
-.magnifier-particle::before {
-  content: '';
-  display: block;
-  width: var(--particle-size, 20px);
-  height: var(--particle-size, 20px);
-  border: 2px solid var(--primary-color);
-  border-radius: 50% 0 50% 50%;
-  background: rgba(177, 15, 46, 0.1);
-  box-shadow: 0 0 8px rgba(177, 15, 46, 0.3);
-}
-
-/* Mango de la lupa */
-.magnifier-particle::after {
-  content: '';
-  position: absolute;
-  width: calc(var(--particle-size, 20px) * 0.4);
-  height: calc(var(--particle-size, 20px) * 0.15);
-  background: var(--primary-color);
-  border-radius: 2px;
-  top: calc(var(--particle-size, 20px) * 0.9);
-  left: calc(var(--particle-size, 20px) * 0.9);
-  transform: rotate(45deg);
-  box-shadow: 0 0 4px rgba(177, 15, 46, 0.3);
-}
-
-/* Animación de entrada inicial */
-@keyframes particleEnter {
-  from {
-    opacity: 0;
-    transform: scale(0) rotate(-180deg);
-  }
-  to {
-    opacity: 0.4;
-    transform: scale(1) rotate(0deg);
-  }
-}
-
-.magnifier-particle {
-  animation: particleEnter 0.8s ease-out forwards;
-}
-
 /* Contenedor principal */
 .app {
   min-height: 100vh;
@@ -265,7 +214,6 @@ a:hover {
   position: relative;
 }
 
-/* Fade inferior por sección para transición suave */
 .section::after {
   content: '';
   position: absolute;
@@ -275,34 +223,6 @@ a:hover {
   height: 80px;
   background: linear-gradient(to bottom, rgba(11, 11, 12, 0) 0%, rgba(11, 11, 12, 0.55) 55%, rgba(11, 11, 12, 1) 100%);
   pointer-events: none;
-}
-
-/* Animaciones de fondo */
-@keyframes ambientShift {
-  0% {
-    background-position: 15% 10%, 85% -5%, 0 0;
-  }
-  50% {
-    background-position: 20% 14%, 80% 0%, 0 0;
-  }
-  100% {
-    background-position: 12% 6%, 88% -8%, 0 0;
-  }
-}
-
-@keyframes floatBlobs {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.7;
-  }
-  50% {
-    transform: translate3d(1.5%, -1.5%, 0) scale(1.03);
-    opacity: 0.85;
-  }
-  100% {
-    transform: translate3d(-1%, 2%, 0) scale(1.02);
-    opacity: 0.75;
-  }
 }
 
 .section-title {
@@ -346,7 +266,7 @@ a:hover {
 /* Animaciones */
 @keyframes fadeIn {
   from {
-    opacity: 10;
+    opacity: 0;
     transform: translateY(20px);
   }
   to {
@@ -374,3 +294,161 @@ a:hover {
 .mb-1 { margin-bottom: var(--spacing-sm); }
 .mb-2 { margin-bottom: var(--spacing-md); }
 .mb-3 { margin-bottom: var(--spacing-lg); }
+
+/* Stream de peticiones HTTP - Estrellas Fugaces */
+.http-stream {
+  position: fixed;
+  inset: 0;
+  z-index: 10; /* Detrás de todo, pero encima del fondo base */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.http-request {
+  position: absolute;
+  top: -30px;
+  font-family: 'Courier New', monospace;
+  font-size: 18px; /* Un poco más grande para mejor visibilidad */
+  font-weight: bold;
+  color: var(--accent-color); /* Rojo neon */
+  text-shadow: var(--neon-glow); /* Efecto de brillo neon */
+  white-space: nowrap;
+  animation: shootingStar 8s linear infinite;
+  opacity: 0.8;
+  transform: rotate(-15deg);
+  /* QUITA todos estos estilos: */
+  /* background: ... */
+  /* border: ... */
+  /* border-radius: ... */
+  /* padding: ... */
+  /* box-shadow: ... */
+}
+
+.http-request:nth-child(odd) {
+  color: var(--primary-color); /* Otro tono de rojo */
+  text-shadow: 0 0 8px rgba(177, 15, 46, 0.8);
+  transform: rotate(15deg);
+}
+
+.http-request:nth-child(7n) {
+  text-shadow: 0 0 12px var(--accent-color);
+  font-size: 20px; /* Un poco más grande para algunos */
+}
+
+.http-request:nth-child(11n) {
+  text-shadow: 0 0 12px var(--primary-color);
+  font-size: 16px; /* Un poco más pequeño para otros */
+}
+
+.http-request:nth-child(13n) {
+  font-size: 22px;
+  text-shadow: 0 0 15px var(--neon-accent);
+}
+
+@keyframes shootingStar {
+  0% {
+    transform: translateX(var(--start-x, 0)) translateY(var(--start-y, 0)) rotate(var(--rotation, -15deg));
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  20% {
+    transform: translateX(calc(var(--start-x, 0) + 30vw)) translateY(calc(var(--start-y, 0) + 20vh)) rotate(var(--rotation, -15deg));
+  }
+  40% {
+    transform: translateX(calc(var(--start-x, 0) + 60vw)) translateY(calc(var(--start-y, 0) + 40vh)) rotate(var(--rotation, -15deg));
+  }
+  60% {
+    transform: translateX(calc(var(--start-x, 0) + 90vw)) translateY(calc(var(--start-y, 0) + 60vh)) rotate(var(--rotation, -15deg));
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(calc(var(--start-x, 0) + 120vw)) translateY(calc(var(--start-y, 0) + 80vh)) rotate(var(--rotation, -15deg));
+    opacity: 0;
+  }
+}
+
+/* Diferentes trayectorias para variedad */
+.http-request:nth-child(2n) {
+  --start-x: 0;
+  --start-y: 0;
+}
+
+.http-request:nth-child(3n) {
+  --start-x: 20vw;
+  --start-y: -10vh;
+}
+
+.http-request:nth-child(4n) {
+  --start-x: -10vw;
+  --start-y: 30vh;
+}
+
+.http-request:nth-child(5n) {
+  --start-x: 50vw;
+  --start-y: 20vh;
+}
+
+.http-request:nth-child(6n) {
+  animation-duration: 3s;
+}
+
+.http-request:nth-child(7n) {
+  animation-duration: 12s;
+}
+
+/* Efecto de glow para algunos elementos */
+.http-request:nth-child(7n) {
+  text-shadow: 0 0 8px var(--accent-color);
+  border-color: var(--neon-accent);
+  box-shadow: 
+    0 0 12px rgba(255, 26, 75, 0.6),
+    inset 0 0 12px rgba(255, 26, 75, 0.3);
+}
+
+.http-request:nth-child(11n) {
+  text-shadow: 0 0 8px var(--primary-color);
+  border-color: var(--primary-color);
+  box-shadow: 
+    0 0 12px rgba(177, 15, 46, 0.6),
+    inset 0 0 12px rgba(177, 15, 46, 0.3);
+}
+
+.http-request:nth-child(13n) {
+  font-size: 13px;
+  padding: 4px 8px;
+  border-width: 2px;
+  text-shadow: 0 0 10px var(--neon-accent);
+}
+
+/* Animaciones de fondo */
+@keyframes ambientShift {
+  0% {
+    background-position: 15% 10%, 85% -5%, 0 0;
+  }
+  50% {
+    background-position: 20% 14%, 80% 0%, 0 0;
+  }
+  100% {
+    background-position: 12% 6%, 88% -8%, 0 0;
+  }
+}
+
+@keyframes floatBlobs {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 10;
+  }
+  50% {
+    transform: translate3d(1.5%, -1.5%, 0) scale(1.03);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(-1%, 2%, 0) scale(1.02);
+    opacity: 0.75;
+  }
+}
+

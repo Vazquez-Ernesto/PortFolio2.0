@@ -14,181 +14,109 @@ function App() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    const particles = [];
-    const particleCount = 18; // Número de lupas celulares
+    // Sistema de stream HTTP - Estrellas Fugaces
+    let httpAnimationId = null;
+    let isHttpStreaming = true;
+    const httpMethods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'];
+    const httpStatuses = ['200', '201', '204', '400', '401', '403', '404', '500', '502', '503'];
+
+    const createHttpRequest = () => {
+      if (!isHttpStreaming) return;
     
-    // Crear partículas celulares
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'magnifier-particle';
+      const httpStream = document.getElementById('http-stream');
+      if (!httpStream) return;
+    
+      const request = document.createElement('div');
+      request.className = 'http-request';
       
-      // Posición inicial aleatoria
-      const x = Math.random() * 90 + 5; // 5% - 95% para evitar bordes
-      const y = Math.random() * 90 + 5;
+      // Método HTTP aleatorio
+      const method = httpMethods[Math.floor(Math.random() * httpMethods.length)];
+      // Status aleatorio
+      const status = httpStatuses[Math.floor(Math.random() * httpStatuses.length)];
       
-      particle.style.left = x + '%';
-      particle.style.top = y + '%';
+      request.textContent = status;
       
-      // Tamaño variable (16px - 28px)
-      const size = 16 + Math.random() * 12;
-      particle.style.setProperty('--particle-size', size + 'px');
+      // Posición inicial VARIADA (no solo desde la izquierda)
+      const startPositions = [
+        { left: '-50px', top: Math.random() * 50 + '%' }, // Desde izquierda
+        { right: '-50px', top: Math.random() * 50 + '%' }, // Desde derecha
+        { top: '-30px', left: Math.random() * 80 + 10 + '%' }, // Desde arriba
+        { bottom: '-30px', left: Math.random() * 80 + 10 + '%' } // Desde abajo
+      ];
       
-      // Delay inicial para entrada escalonada
-      particle.style.animationDelay = (i * 0.2) + 's';
+      const startPos = startPositions[Math.floor(Math.random() * startPositions.length)];
+      Object.assign(request.style, startPos);
       
-      containerRef.current.appendChild(particle);
+      // Trayectoria aleatoria
+      const trajectory = Math.floor(Math.random() * 4); // 0, 1, 2, 3
+      request.style.setProperty('--trajectory', trajectory);
       
-      particles.push({
-        element: particle,
-        x: x,
-        y: y,
-        baseX: x,  // Posición base en %
-        baseY: y,  // Posición base en %
-        size: size,
-        mouseOffset: { x: 0, y: 0 }, // Offset del mouse en px
-        mouseInfluence: 0 // Influencia del mouse para opacidad
-      });
-    }
-
-    // Sistema de animación ultra robusto
-    let animationId = null;
-    let isAnimating = true;
-
-    // Función de repulsión celular corregida con unidades consistentes
-    const handleMouseMove = (e) => {
-      const mouseX = (e.clientX / window.innerWidth) * 100;  // Mantener en %
-      const mouseY = (e.clientY / window.innerHeight) * 100; // Mantener en %
+      // Ángulo de rotación aleatorio más amplio
+      const rotationAngle = -45 + Math.random() * 90; // -45° a +45°
+      request.style.setProperty('--rotation', rotationAngle + 'deg');
       
-      particles.forEach(particle => {
-        const dx = mouseX - particle.baseX;
-        const dy = mouseY - particle.baseY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        // Radio de influencia en porcentaje (más consistente)
-        const influenceRadiusPercent = 15; // 15% de la pantalla
-        const force = Math.max(0, influenceRadiusPercent - distance) / influenceRadiusPercent;
-        
-        // Calcular repulsión en píxeles, pero consistente
-        const angle = Math.atan2(dy, dx);
-        const repelDistance = force * 25; // Reducido para mejor control
-        
-        // Suavizar la transición guardando el offset anterior
-        const currentOffset = particle.mouseOffset || { x: 0, y: 0 };
-        const targetOffset = {
-          x: -Math.cos(angle) * repelDistance,
-          y: -Math.sin(angle) * repelDistance
-        };
-        
-        // Interpolación suave (lerp) para transiciones fluidas
-        const lerpFactor = 0.1;
-        particle.mouseOffset = {
-          x: currentOffset.x + (targetOffset.x - currentOffset.x) * lerpFactor,
-          y: currentOffset.y + (targetOffset.y - currentOffset.y) * lerpFactor
-        };
-        
-        // Guardar influencia para opacidad
-        particle.mouseInfluence = force;
-      });
-    };
-
-    const animateParticles = () => {
-      if (!isAnimating) return;
+      // Duración de animación más variada (2-8 segundos)
+      const duration = 2 + Math.random() * 6;
+      request.style.animationDuration = duration + 's';
       
-      try {
-        const time = Date.now() * 0.001;
-        
-        particles.forEach((particle, index) => {
-          if (!particle || !particle.element || !particle.element.parentNode) return;
-          
-          // Movimiento base sinusoidal más pronunciado y continuo
-          const baseX = Math.sin(time * 0.8 + index * 0.7) * 12; // Aumentado a ±12px
-          const baseY = Math.cos(time * 0.6 + index * 0.5) * 12; // Aumentado a ±12px
-          
-          // Calcular offset del mouse (convertido a píxeles consistentes)
-          const mouseOffset = particle.mouseOffset || { x: 0, y: 0 };
-          
-          // Combinar movimientos: base + mouse con mayor peso al movimiento base
-          const totalX = baseX + mouseOffset.x;
-          const totalY = baseY + mouseOffset.y;
-          
-          // Aplicar transformación unificada
-          particle.element.style.transform = `translate(${totalX}px, ${totalY}px)`;
-          
-          // Cambiar opacidad sutilmente basada en el tiempo y proximidad del mouse
-          const baseOpacity = 0.4 + (Math.sin(time + index) * 0.1);
-          const mouseInfluence = particle.mouseInfluence || 0;
-          const finalOpacity = Math.max(0.2, baseOpacity - mouseInfluence * 0.3);
-          particle.element.style.opacity = finalOpacity;
-        });
-        
-        // Continuar la animación
-        animationId = requestAnimationFrame(animateParticles);
-        
-      } catch (error) {
-        console.warn('Error en animación de partículas:', error);
-        // Reiniciar la animación si hay error
-        setTimeout(() => {
-          if (isAnimating) {
-            animationId = requestAnimationFrame(animateParticles);
-          }
-        }, 100);
-      }
-    };
-
-    // Función para iniciar animación
-    const startAnimation = () => {
-      if (!isAnimating) {
-        isAnimating = true;
-        animateParticles();
-      }
-    };
-
-    // Función para detener animación
-    const stopAnimation = () => {
-      isAnimating = false;
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-        animationId = null;
-      }
-    };
-
-    // Event listeners
-    window.addEventListener('mousemove', handleMouseMove);
-    startAnimation(); // Iniciar movimiento continuo
-
-    // Cleanup mejorado
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      stopAnimation();
+      // Delay inicial aleatorio (0.2-2 segundos)
+      request.style.animationDelay = (0.2 + Math.random() * 1.8) + 's';
       
-      // Limpiar partículas más cuidadosamente
-      particles.forEach(particle => {
-        if (particle && particle.element && particle.element.parentNode) {
-          try {
-            particle.element.parentNode.removeChild(particle.element);
-          } catch (e) {
-            console.warn('Error al limpiar partícula:', e);
-          }
+      httpStream.appendChild(request);
+      
+      // Remover después de la animación
+      setTimeout(() => {
+        if (request.parentNode) {
+          request.parentNode.removeChild(request);
         }
-      });
+      }, (duration + 2) * 1000);
+    };
+
+    const startHttpStream = () => {
+      if (!isHttpStreaming) return;
+      
+      // Crear nueva estrella fugaz cada 1-3 segundos
+      const interval = 1000 + Math.random() * 2000;
+      setTimeout(() => {
+        createHttpRequest();
+        startHttpStream();
+      }, interval);
+    };
+
+    // Iniciar stream HTTP
+    startHttpStream();
+
+    // Cleanup
+    return () => {
+      isHttpStreaming = false;
+      
+      // Limpiar stream HTTP
+      const httpStream = document.getElementById('http-stream');
+      if (httpStream) {
+        httpStream.innerHTML = '';
+      }
     };
   }, []);
 
   return (
-    <Router basename="/PortFolio2.0">
-      <div ref={containerRef} className="app">
-        <Header />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/projects" element={<Projects />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+// Quita el basename para que funcione en la raíz
+<Router>
+  <div ref={containerRef} className="app">
+    {/* Stream de peticiones HTTP en el fondo */}
+    <div className="http-stream" id="http-stream"></div>
+    
+    <Header />
+    <main className="main-content">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/projects" element={<Projects />} />
+      </Routes>
+    </main>
+    <Footer />
+  </div>
+</Router>
   );
 }
 
