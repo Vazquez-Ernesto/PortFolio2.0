@@ -72,7 +72,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
   background:
     radial-gradient(1100px 450px at 15% 10%, rgba(177, 15, 46, 0.16), transparent 60%),
     radial-gradient(900px 400px at 85% -5%, rgba(255, 26, 75, 0.12), transparent 65%),
@@ -95,21 +95,6 @@ body::after {
   animation: floatBlobs 36s ease-in-out infinite alternate;
 }
 
-/* Capa animada sutil de "auroras" bordó/neón */
-body::after {
-  content: '';
-  position: fixed;
-  inset: -20% -10% -10% -10%;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(35% 25% at 20% 15%, rgba(177, 15, 46, 0.18), transparent 60%),
-    radial-gradient(28% 22% at 80% 10%, rgba(255, 26, 75, 0.14), transparent 65%),
-    radial-gradient(20% 20% at 60% 80%, rgba(177, 15, 46, 0.12), transparent 70%);
-  animation: floatBlob1 18s ease-in-out infinite alternate;
-  will-change: transform, opacity;
-}
-
 @keyframes floatBlob1 {
   0% {
     transform: translate3d(0, 0, 0) scale(1);
@@ -125,11 +110,55 @@ body::after {
   }
 }
 
-/* Reduce motion para accesibilidad */
-@media (prefers-reduced-motion: reduce) {
-  body::after {
-    animation: none;
+/* Partículas celulares interactivas creadas dinámicamente por JavaScript */
+.magnifier-particle {
+  position: fixed;
+  z-index: 9999; /* AL FRENTE DE TODO */
+  pointer-events: none;
+  transition: opacity 20s ease-out; /* Removida transition de transform para mejor control */
+  will-change: transform, opacity;
+}
+
+/* Lupa base */
+.magnifier-particle::before {
+  content: '';
+  display: block;
+  width: var(--particle-size, 20px);
+  height: var(--particle-size, 20px);
+  border: 2px solid var(--primary-color);
+  border-radius: 50% 0 50% 50%;
+  background: rgba(177, 15, 46, 0.1);
+  box-shadow: 0 0 8px rgba(177, 15, 46, 0.3);
+}
+
+/* Mango de la lupa */
+.magnifier-particle::after {
+  content: '';
+  position: absolute;
+  width: calc(var(--particle-size, 20px) * 0.4);
+  height: calc(var(--particle-size, 20px) * 0.15);
+  background: var(--primary-color);
+  border-radius: 2px;
+  top: calc(var(--particle-size, 20px) * 0.9);
+  left: calc(var(--particle-size, 20px) * 0.9);
+  transform: rotate(45deg);
+  box-shadow: 0 0 4px rgba(177, 15, 46, 0.3);
+}
+
+/* Animación de entrada inicial */
+@keyframes particleEnter {
+  from {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
   }
+  to {
+    opacity: 0.4;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.magnifier-particle {
+  animation: particleEnter 0.8s ease-out forwards;
 }
 
 /* Contenedor principal */
@@ -276,15 +305,6 @@ a:hover {
   }
 }
 
-/* Accesibilidad: reducir animaciones si el usuario lo prefiere */
-@media (prefers-reduced-motion: reduce) {
-  body::before,
-  body::after,
-  .fade-in {
-    animation: none !important;
-  }
-}
-
 .section-title {
   text-align: center;
   margin-bottom: var(--spacing-xl);
@@ -326,7 +346,7 @@ a:hover {
 /* Animaciones */
 @keyframes fadeIn {
   from {
-    opacity: 0;
+    opacity: 10;
     transform: translateY(20px);
   }
   to {
