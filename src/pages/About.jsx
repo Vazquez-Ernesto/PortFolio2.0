@@ -17,7 +17,7 @@ function About() {
             <div className="about-image">
               <div className="image-container">
                 <img 
-                  src="/src/assets/images/PerfilAbout.png" 
+                  src="/assets/images/PerfilAbout.png"
                   alt="Ernesto Vázquez - QA Automation Engineer"
                   className="profile-image"
                 />
