@@ -1,7 +1,5 @@
 .projects-hero {
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-  color: white;
-  text-align: center;
+background: linear-gradient(135deg, rgb(0, 0, 0), rgba(255, 26, 75, 0.1));  text-align: center;
   padding: var(--spacing-xxl) 0;
 }
 
@@ -17,7 +15,7 @@
 }
 
 .projects-content {
-  background-color: var(--bg-secondary);
+  background: linear-gradient(135deg, rgb(0, 0, 0), rgba(255, 26, 75, 0.1));
   min-height: 60vh;
 }
 

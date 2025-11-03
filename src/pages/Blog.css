@@ -1,9 +1,6 @@
 .blog-hero {
   /* Gradiente más profundo y suave hacia el negro/bordó */
-  background:
-    radial-gradient(1000px 300px at 80% -10%, rgba(255, 26, 75, 0.25), transparent 60%),
-    radial-gradient(1200px 400px at 10% 0%, rgba(177, 15, 46, 0.25), transparent 65%),
-    linear-gradient(180deg, rgba(177, 15, 46, 1) 0%, rgba(177, 15, 46, 0.85) 35%, rgba(19, 19, 22, 0.85) 70%, rgba(11, 11, 12, 1) 100%);
+  background: linear-gradient(135deg, rgb(0, 0, 0), rgba(255, 26, 75, 0.1));
   color: white;
   text-align: center;
   padding: var(--spacing-xxl) 0;
@@ -47,7 +44,7 @@
 }
 
 .blog-card {
-  background-color: var(--bg-secondary);
+  background: linear-gradient(135deg, rgb(0, 0, 0), rgba(255, 26, 75, 0.1));
   border: 1px solid var(--border-color);
   overflow: hidden;
   display: flex;

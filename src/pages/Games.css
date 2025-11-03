@@ -4,14 +4,23 @@
 }
 
 .games-hero {
-  text-align: center;
+  /* Gradiente más profundo y suave hacia el negro/bordó */
   background: linear-gradient(135deg, rgb(0, 0, 0), rgba(255, 26, 75, 0.1));
+  color: white;  /* ← AGREGAR: Texto blanco */
+  text-align: center;
   border-bottom: 1px solid var(--border-color);
+}
+
+.games-hero h1 {  /* ← AGREGAR: Específicamente para el h1 */
+  color: white;
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--spacing-md);
 }
 
 .games-subtitle {
   font-size: var(--font-size-lg);
-  color: var(--primary-color);
+  opacity: 0.95;  /* ← AGREGAR: Para que el subtítulo también sea blanco con opacidad */
+  color: inherit;  /* ← CAMBIAR: De var(--primary-color) a inherit para heredar el blanco */
   margin-top: var(--spacing-sm);
 }
 
@@ -48,7 +57,7 @@
 .game-card:hover {
   transform: translateY(-5px);
   border-color: var(--accent-color);
-  box-shadow: var(--shadow-lg), 0 0 20px rgba(255, 26, 75, 0.3);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(241, 241, 241, 0.3);
 }
 
 .game-icon {

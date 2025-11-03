@@ -3,9 +3,7 @@
   min-height: 70vh;
   display: flex;
   align-items: center;
-  background: radial-gradient(1200px 500px at 20% 20%, rgba(255, 26, 75, 0.15), transparent 60%),
-    radial-gradient(900px 400px at 80% 0%, rgba(177, 15, 46, 0.2), transparent 60%),
-    linear-gradient(135deg, #0b0b0c 0%, #131316 100%);
+  background: linear-gradient(135deg, rgb(0, 0, 0), rgba(255, 26, 75, 0.1));
   color: var(--text-color);
   position: relative;
   overflow: hidden;
@@ -78,7 +76,7 @@
 
 /* Skills Section */
 .skills-section {
-  background-color: var(--bg-secondary);
+  background: linear-gradient(135deg, rgb(0, 0, 0), rgba(255, 26, 75, 0.1));
 }
 
 .skills-grid {
@@ -113,7 +111,7 @@
 .cta-content {
   text-align: center;
   padding: var(--spacing-xxl);
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  background: linear-gradient(135deg, rgb(0, 0, 0), rgba(255, 26, 75, 0.1));
   color: white;
 }
 
@@ -129,7 +127,7 @@
 }
 
 .cta-content .btn {
-  background-color: white;
+  background: linear-gradient(135deg, rgb(0, 0, 0), rgba(255, 26, 75, 0.1));
   color: var(--primary-color);
 }
 

@@ -30,8 +30,8 @@ function About() {
                 QA Automation Engineer | Buenos Aires, Argentina
               </h3>
               <p>
-               Después de 4 años asegurando la calidad de productos para la banca y fintech, entendí algo clave: <b>no quiero solo probar software, quiero crearlo.</b>
-               Por eso estoy dando el siguiente paso: <b>convertir tod a mi experiencia en automatización, análisis y optimización en el motor de mi propia empresa tecnológica.</b> <br />
+               Después de 4 años asegurando la calidad de productos para la banca y fintech, entendí algo clave: <b>no quiero solo probar software, quiero crearlo. </b>
+               Por eso estoy dando el siguiente paso: <b>convertir toda mi experiencia en automatización, análisis y optimización en el motor de mi propia empresa tecnológica.</b> <br />
               </p>
               <p>
                Realice pruebas exploratorias, smoke, regresión y E2E, utilizando herramientas como Cypress, Selenium y Playwright.

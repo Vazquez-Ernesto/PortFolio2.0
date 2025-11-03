@@ -79,7 +79,7 @@ function Header() {
                 className={isActive('/games')}
                 onClick={closeMenu}
               >
-                🎮 Juegos
+                 Juegos
               </Link>
             </li>
           </ul>
