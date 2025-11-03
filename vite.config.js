@@ -5,8 +5,8 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   // Ajuste para GitHub Pages: cambia el nombre si tu repo es distinto
-  base: '/PortFolio2.0/',
-  build: {
+  base: 'http://localhost:3000/',
+  build: {  
     outDir: 'docs'
   },
   server: {

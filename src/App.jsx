@@ -6,6 +6,7 @@ import "./styles/App.css";
 import Home from './pages/Home';
 import About from './pages/About';
 import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import Projects from './pages/Projects';
 import Games from './pages/Games'; // ← AGREGAR ESTA LÍNEA
 import Header from './components/Header';
@@ -108,13 +109,14 @@ function App() {
     
     <Header />
     <main className="main-content">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/games" element={<Games />} />
-      </Routes>
+    <Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/about" element={<About />} />
+  <Route path="/blog" element={<Blog />} />
+  <Route path="/blog/:id" element={<BlogPost />} /> {/* ← AGREGAR ESTA LÍNEA */}
+  <Route path="/projects" element={<Projects />} />
+  <Route path="/games" element={<Games />} />
+</Routes>
     </main>
     <Footer />
   </div>

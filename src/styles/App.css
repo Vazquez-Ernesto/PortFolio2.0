@@ -299,7 +299,7 @@ a:hover {
 .http-stream {
   position: fixed;
   inset: 0;
-  z-index: 10; /* Detrás de todo, pero encima del fondo base */
+  z-index: -3; /* Detrás de todo, pero encima del fondo base */
   pointer-events: none;
   overflow: hidden;
 }
