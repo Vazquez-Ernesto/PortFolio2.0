@@ -31,16 +31,13 @@ function About() {
               </h3>
               <p>
                Después de 4 años asegurando la calidad de productos para la banca y fintech, entendí algo clave: <b>no quiero solo probar software, quiero crearlo.</b>
-               Por eso estoy dando el siguiente paso: <b>convertir toda mi experiencia en automatización, análisis y optimización en el motor de mi propia empresa tecnológica.</b> <br />
+               Por eso estoy dando el siguiente paso: <b>convertir tod a mi experiencia en automatización, análisis y optimización en el motor de mi propia empresa tecnológica.</b> <br />
               </p>
               <p>
                Realice pruebas exploratorias, smoke, regresión y E2E, utilizando herramientas como Cypress, Selenium y Playwright.
               </p>
               <p>
                Mi experiencia incluye metodologías ágiles (Scrum), gestión de proyectos con Jira y X-Ray, y automatización de pipelines CI/CD con Jenkins.
-              </p>
-              <p>
-               Actualmente trabajo en Getnet, asegurando la calidad de productos fintech con enfoque en testing de APIs, bases de datos y aplicaciones móviles.
               </p>
             </div>
           </div>
