@@ -8,6 +8,16 @@ function Games() {
   const [timeLeft, setTimeLeft] = useState(30)
   const [gameCompleted, setGameCompleted] = useState(false)
   const [certificate, setCertificate] = useState(null)
+  const [notification, setNotification] = useState(null)
+
+  // Estado del Buscaminas QA
+  const [mineSweeperBoard, setMineSweeperBoard] = useState([])
+  const [revealedCells, setRevealedCells] = useState(new Set())
+  const [flaggedCells, setFlaggedCells] = useState(new Set())
+  const [gameOver, setGameOver] = useState(false)
+  const [gameWon, setGameWon] = useState(false)
+  const [mineSweeperScore, setMineSweeperScore] = useState(0)
+  const [startTime, setStartTime] = useState(null)
 
   // Quiz questions
   const quizQuestions = [
@@ -53,38 +63,9 @@ function Games() {
     }
   ]
 
-  // Bug finding challenges
-  const bugChallenges = [
-    {
-      id: 1,
-      title: "Bug en Login Form",
-      image: "🔒",
-      description: "Encuentra el bug en este formulario de login",
-      bugs: [
-        { x: 30, y: 40, description: "Campo password acepta menos de 8 caracteres" },
-        { x: 70, y: 60, description: "Botón 'Login' no está centrado" },
-        { x: 20, y: 80, description: "Texto 'Forgot password?' tiene enlace roto" }
-      ],
-      found: []
-    },
-    {
-      id: 2,
-      title: "Bug en API Response",
-      image: "📡",
-      description: "Identifica inconsistencias en esta respuesta JSON",
-      bugs: [
-        { x: 25, y: 35, description: "Campo 'userId' debería ser 'id'" },
-        { x: 60, y: 50, description: "Array 'permissions' está vacío" },
-        { x: 40, y: 70, description: "Campo 'createdAt' tiene formato incorrecto" }
-      ],
-      found: []
-    }
-  ]
-
   const [currentQuizQuestion, setCurrentQuizQuestion] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [showExplanation, setShowExplanation] = useState(false)
-  const [currentBugChallenge, setCurrentBugChallenge] = useState(0)
 
   // Timer effect
   useEffect(() => {
@@ -94,7 +75,7 @@ function Games() {
     }
   }, [timeLeft, currentGame, gameCompleted])
 
-  // Función de sonidos
+  // Función de sonidos mejorada
   const playSound = (type) => {
     try {
       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -105,35 +86,92 @@ function Games() {
       gainNode.connect(audioContext.destination);
       
       if (type === 'hover') {
-        // Sonido suave para hover
         oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
         oscillator.type = 'sine';
         gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
       } else if (type === 'correct') {
-        // Sonido positivo para respuesta correcta
-        oscillator.frequency.setValueAtTime(523, audioContext.currentTime); // Do
-        oscillator.frequency.setValueAtTime(659, audioContext.currentTime + 0.1); // Mi
-        oscillator.frequency.setValueAtTime(784, audioContext.currentTime + 0.2); // Sol
+        oscillator.frequency.setValueAtTime(523, audioContext.currentTime);
+        oscillator.frequency.setValueAtTime(659, audioContext.currentTime + 0.1);
+        oscillator.frequency.setValueAtTime(784, audioContext.currentTime + 0.2);
         oscillator.type = 'triangle';
         gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
       } else if (type === 'incorrect') {
-        // Sonido de error para respuesta incorrecta
         oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
         oscillator.frequency.setValueAtTime(150, audioContext.currentTime + 0.1);
         oscillator.type = 'sawtooth';
         gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+      } else if (type === 'checkmark') {
+        // Sonido para encontrar checkmark
+        oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
+        oscillator.frequency.setValueAtTime(1046, audioContext.currentTime + 0.1);
+        oscillator.type = 'sine';
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+      } else if (type === 'gameOver') {
+        // Sonido de game over
+        oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
+        oscillator.frequency.setValueAtTime(100, audioContext.currentTime + 0.2);
+        oscillator.type = 'sawtooth';
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.8);
       }
       
       oscillator.start(audioContext.currentTime);
       oscillator.stop(audioContext.currentTime + (type === 'correct' ? 0.4 : 0.3));
     } catch (error) {
-      // Si Web Audio API no está disponible, no hacer nada
       console.log('Audio no disponible');
     }
-  };
+  }
+
+  // Función para mostrar notificaciones
+  const showBugNotification = (message, type) => {
+    setNotification({ message, type })
+    setTimeout(() => setNotification(null), 2500)
+  }
+
+  // Inicializar Buscaminas QA
+  const initializeMineSweeper = () => {
+    const boardSize = 8
+    const totalCells = boardSize * boardSize
+    const bugCount = 10
+    const checkmarkCount = 15
+    
+// Crear board vacío (sin emojis iniciales)
+const board = Array(boardSize).fill().map(() => Array(boardSize).fill({ type: 'empty' }))
+
+// Colocar bugs (sin emojis)
+let bugsPlaced = 0
+while (bugsPlaced < bugCount) {
+  const row = Math.floor(Math.random() * boardSize)
+  const col = Math.floor(Math.random() * boardSize)
+  if (board[row][col].type === 'empty') {
+    board[row][col] = { type: 'bug' }
+    bugsPlaced++
+  }
+}
+
+// Colocar checkmarks (sin emojis)
+let checkmarksPlaced = 0
+while (checkmarksPlaced < checkmarkCount) {
+  const row = Math.floor(Math.random() * boardSize)
+  const col = Math.floor(Math.random() * boardSize)
+  if (board[row][col].type === 'empty') {
+    board[row][col] = { type: 'checkmark' }
+    checkmarksPlaced++
+  }
+}
+    
+    setMineSweeperBoard(board)
+    setRevealedCells(new Set())
+    setFlaggedCells(new Set())
+    setGameOver(false)
+    setGameWon(false)
+    setMineSweeperScore(0)
+    setStartTime(Date.now())
+  }
 
   const startQuiz = () => {
     setCurrentGame('quiz')
@@ -145,19 +183,16 @@ function Games() {
     setCertificate(null)
   }
 
-  const startBugHunt = () => {
-    setCurrentGame('bughunt')
+  const startMineSweeper = () => {
+    setCurrentGame('minesweeper')
     setScore(0)
-    setCurrentBugChallenge(0)
-    setGameCompleted(false)
-    setCertificate(null)
+    initializeMineSweeper()
   }
 
   const handleQuizAnswer = (answerIndex) => {
     setSelectedAnswer(answerIndex)
     setShowExplanation(true)
     
-    // Agregar sonido según si es correcta o incorrecta
     if (answerIndex === quizQuestions[currentQuizQuestion].correct) {
       playSound('correct')
       const timeBonus = timeLeft * 10
@@ -179,34 +214,47 @@ function Games() {
     }, 3000)
   }
 
-  const handleBugClick = (event, challengeIndex) => {
-    const rect = event.target.getBoundingClientRect()
-    const x = ((event.clientX - rect.left) / rect.width) * 100
-    const y = ((event.clientY - rect.top) / rect.height) * 100
+  const handleCellClick = (row, col) => {
+    if (gameOver || gameWon) return
     
-    const challenge = bugChallenges[challengeIndex]
-    const foundBug = challenge.bugs.find(bug => 
-      Math.abs(bug.x - x) < 10 && Math.abs(bug.y - y) < 10 &&
-      !challenge.found.some(f => f.x === bug.x && f.y === bug.y)
-    )
+    const cellKey = `${row}-${col}`
     
-    if (foundBug) {
-      challenge.found.push(foundBug)
-      setScore(prev => prev + 150)
+    if (revealedCells.has(cellKey)) return
+    
+    const newRevealed = new Set(revealedCells)
+    newRevealed.add(cellKey)
+    setRevealedCells(newRevealed)
+    
+    const cell = mineSweeperBoard[row][col]
+    
+    if (cell.type === 'bug') {
+      playSound('gameOver')
+      setGameOver(true)
+      showBugNotification('💥 ¡Activaste un bug! Juego terminado', 'error')
+    } else if (cell.type === 'checkmark') {
+      playSound('checkmark')
+      setMineSweeperScore(prev => prev + 100)
+      showBugNotification('✅ ¡Checkmark encontrado! +100 puntos', 'success')
       
-      if (challenge.found.length === challenge.bugs.length) {
-        setTimeout(() => {
-          if (currentBugChallenge < bugChallenges.length - 1) {
-            setCurrentBugChallenge(currentBugChallenge + 1)
-          } else {
-            generateCertificate()
-          }
-        }, 2000)
+      // Verificar si ganó (encontró todos los checkmarks)
+      const totalCheckmarks = mineSweeperBoard.flat().filter(cell => cell.type === 'checkmark').length
+      const foundCheckmarks = Array.from(newRevealed).filter(key => {
+        const [r, c] = key.split('-').map(Number)
+        return mineSweeperBoard[r][c].type === 'checkmark'
+      }).length
+      
+      if (foundCheckmarks === totalCheckmarks) {
+        const timeBonus = Math.max(0, 300 - Math.floor((Date.now() - startTime) / 1000))
+        setMineSweeperScore(prev => prev + timeBonus)
+        setGameWon(true)
+        showBugNotification(`🏆 ¡Ganaste! +${timeBonus} puntos bonus por tiempo`, 'bonus')
+        setTimeout(() => generateCertificate(), 2000)
       }
     }
   }
 
   const generateCertificate = () => {
+    const finalScore = score + mineSweeperScore
     const certificates = [
       { title: "QA Novice", emoji: "🌱", color: "#ff6b6b" },
       { title: "Testing Apprentice", emoji: "🛠️", color: "#4ecdc4" },
@@ -215,7 +263,7 @@ function Games() {
       { title: "Testing Legend", emoji: "⭐", color: "#ff9ff3" }
     ]
     
-    const certIndex = Math.min(Math.floor(score / 500), certificates.length - 1)
+    const certIndex = Math.min(Math.floor(finalScore / 500), certificates.length - 1)
     setCertificate(certificates[certIndex])
     setGameCompleted(true)
   }
@@ -225,6 +273,7 @@ function Games() {
     setScore(0)
     setGameCompleted(false)
     setCertificate(null)
+    setNotification(null)
   }
 
   return (
@@ -243,7 +292,7 @@ function Games() {
           {currentGame === 'menu' && (
             <div className="game-menu">
               <div className="score-display">
-                <h3>🏆 Puntaje Actual: <span className="score">{score}</span></h3>
+                <h3>🏆 Puntaje Total: <span className="score">{score + mineSweeperScore}</span></h3>
               </div>
               
               <div className="game-options">
@@ -257,13 +306,13 @@ function Games() {
                   </div>
                 </div>
 
-                <div className="game-card card" onClick={startBugHunt}>
-                  <div className="game-icon">🔍</div>
-                  <h3>Encuentra el Bug</h3>
-                  <p>Identifica bugs en screenshots y código. ¡Sé el mejor Bug Hunter!</p>
+                <div className="game-card card" onClick={startMineSweeper}>
+                  <div className="game-icon">💣</div>
+                  <h3>Buscaminas QA</h3>
+                  <p>Encuentra todos los checkmarks ✅ sin activar bugs 🐛. ¡Demuestra tu atención al detalle!</p>
                   <div className="game-meta">
-                    <span>🎯 Click para encontrar</span>
-                    <span>💎 150 puntos</span>
+                    <span>🎯 15 checkmarks</span>
+                    <span>💎 100 puntos</span>
                   </div>
                 </div>
               </div>
@@ -309,47 +358,73 @@ function Games() {
             </div>
           )}
 
-          {currentGame === 'bughunt' && !gameCompleted && (
-            <div className="bug-hunt-game">
+          {currentGame === 'minesweeper' && !gameCompleted && (
+            <div className="minesweeper-game">
               <div className="game-header">
-                <div className="current-score">🏆 {score}</div>
-                <div className="challenge-progress">
-                  Desafío {currentBugChallenge + 1} de {bugChallenges.length}
+                <div className="current-score">🏆 {mineSweeperScore}</div>
+                <div className="game-stats">
+                  Checkmarks encontrados: {Array.from(revealedCells).filter(key => {
+                    const [r, c] = key.split('-').map(Number)
+                    return mineSweeperBoard[r]?.[c]?.type === 'checkmark'
+                  }).length} / {mineSweeperBoard.flat().filter(cell => cell.type === 'checkmark').length}
                 </div>
+                {gameOver && <div className="game-status game-over">💥 ¡Game Over!</div>}
+                {gameWon && <div className="game-status game-won">🏆 ¡Ganaste!</div>}
               </div>
 
-              <div className="bug-challenge card">
-                <h3>{bugChallenges[currentBugChallenge].title}</h3>
-                <p>{bugChallenges[currentBugChallenge].description}</p>
-                
-                <div 
-                  className="bug-screenshot"
-                  onClick={(e) => handleBugClick(e, currentBugChallenge)}
-                >
-                  <div className="screenshot-placeholder">
-                    {bugChallenges[currentBugChallenge].image}
-                  </div>
-                  
-                  {/* Mostrar bugs encontrados */}
-                  {bugChallenges[currentBugChallenge].found.map((bug, index) => (
-                    <div 
-                      key={index}
-                      className="found-bug"
-                      style={{ left: `${bug.x}%`, top: `${bug.y}%` }}
-                    >
-                      ✅
-                    </div>
-                  ))}
-                </div>
+              <div className="minesweeper-board">
+  {mineSweeperBoard.map((row, rowIndex) => (
+    <div key={rowIndex} className="board-row">
+      {row.map((cell, colIndex) => {
+        const cellKey = `${rowIndex}-${colIndex}`
+        const isRevealed = revealedCells.has(cellKey)
+        const showAllBugs = gameOver || gameWon
+        
+        // Determinar qué mostrar
+        let displayContent = '⬜' // Cuadrado vacío por defecto
+        let cellClass = 'cell'
+        
+        if (isRevealed) {
+          if (cell.type === 'checkmark') {
+            displayContent = '✅'
+            cellClass += ' revealed checkmark'
+          } else if (cell.type === 'bug') {
+            displayContent = '🐛'
+            cellClass += ' revealed bug exploded'
+          } else {
+            displayContent = '⬛'
+            cellClass += ' revealed empty'
+          }
+        } else if (showAllBugs && cell.type === 'bug') {
+          // Mostrar bugs no revelados cuando pierdes
+          displayContent = '🐛'
+          cellClass += ' revealed bug revealed-bug'
+        } else {
+          cellClass += ' hidden'
+        }
+        
+        return (
+          <div
+            key={colIndex}
+            className={cellClass}
+            onClick={() => handleCellClick(rowIndex, colIndex)}
+          >
+            {displayContent}
+          </div>
+        )
+      })}
+    </div>
+  ))}
+</div>
 
-                <div className="bugs-found">
-                  <h4>Bugs encontrados: {bugChallenges[currentBugChallenge].found.length}/{bugChallenges[currentBugChallenge].bugs.length}</h4>
-                  {bugChallenges[currentBugChallenge].found.map((bug, index) => (
-                    <div key={index} className="bug-description">
-                      🎯 {bug.description}
-                    </div>
-                  ))}
-                </div>
+              <div className="game-instructions">
+                <h4>📋 Cómo jugar:</h4>
+                <ul>
+                  <li>✅ <strong>Checkmarks verdes:</strong> Haz click para ganar puntos</li>
+                  <li>🐛 <strong>Bugs rojos:</strong> Evítalos o el juego termina</li>
+                  <li>🎯 <strong>Objetivo:</strong> Encuentra todos los 15 checkmarks</li>
+                  <li>⏱️ <strong>Bonus:</strong> Más rápido = más puntos extra</li>
+                </ul>
               </div>
             </div>
           )}
@@ -366,7 +441,7 @@ function Games() {
                 
                 <h3>{certificate.title}</h3>
                 <p>Has completado el Mini-Juego QA con un puntaje de:</p>
-                <div className="final-score">{score} puntos</div>
+                <div className="final-score">{score + mineSweeperScore} puntos</div>
                 
                 <div className="certificate-actions">
                   <button className="btn" onClick={resetGame}>
@@ -377,6 +452,13 @@ function Games() {
                   </button>
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* Notificación temporal */}
+          {notification && (
+            <div className={`notification ${notification.type}`}>
+              {notification.message}
             </div>
           )}
 
