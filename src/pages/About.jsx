@@ -1,4 +1,5 @@
 import './About.css'
+import profileImage from '/assets/images/PerfilAbout.png'
 
 function About() {
   const skills = [
@@ -17,7 +18,7 @@ function About() {
             <div className="about-image">
               <div className="image-container">
                 <img 
-                  src="/assets/images/PerfilAbout.png"
+                    src={profileImage}
                   alt="Ernesto Vázquez - QA Automation Engineer"
                   className="profile-image"
                 />
