@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Blog from './pages/Blog';
 import Projects from './pages/Projects';
+import Games from './pages/Games'; // ← AGREGAR ESTA LÍNEA
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -112,6 +113,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/games" element={<Games />} />
       </Routes>
     </main>
     <Footer />

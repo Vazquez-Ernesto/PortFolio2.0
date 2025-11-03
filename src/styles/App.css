@@ -308,7 +308,7 @@ a:hover {
   position: absolute;
   top: -30px;
   font-family: 'Courier New', monospace;
-  font-size: 18px; /* Un poco más grande para mejor visibilidad */
+  font-size: 30px; /* Un poco más grande para mejor visibilidad */
   font-weight: bold;
   color: var(--accent-color); /* Rojo neon */
   text-shadow: var(--neon-glow); /* Efecto de brillo neon */

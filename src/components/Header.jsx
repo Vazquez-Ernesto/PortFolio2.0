@@ -73,6 +73,15 @@ function Header() {
                 Blog
               </Link>
             </li>
+            <li>
+              <Link
+                to="/games"
+                className={isActive('/games')}
+                onClick={closeMenu}
+              >
+                🎮 Juegos
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

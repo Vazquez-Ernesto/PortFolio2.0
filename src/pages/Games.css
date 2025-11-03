@@ -1,0 +1,392 @@
+/* Games Page Styles */
+.games {
+    min-height: 100vh;
+  }
+  
+  .games-hero {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(196, 2, 2, 0.1), rgba(255, 26, 75, 0.1));
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .games-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--text-light);
+    margin-top: var(--spacing-sm);
+  }
+  
+  /* Game Menu */
+
+  /* Mejorar legibilidad en general */
+.games-subtitle {
+    color: var(--primary-color); /* Rojo bordó */
+    font-weight: 500;
+  }
+  
+  .game-card h3 {
+    color: var(--text-color); /* Mejor contraste */
+  }
+  
+  .game-card p {
+    color: var(--text-light);
+  }
+  
+  /* Mejorar el texto en el bug hunt */
+  .bugs-found h4 {
+    color: var(--primary-color); /* Rojo bordó */
+  }
+  
+  .bug-description {
+    color: var(--text-color);
+  }
+  .game-menu {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .score-display {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .score {
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: var(--font-size-2xl);
+  }
+  
+  .game-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+  
+  .game-card {
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+  }
+  
+  .game-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(255, 26, 26, 0.3);
+  }
+  
+  .game-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .game-card h3 {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .game-card p {
+    color: var(--text-light);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .game-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-size-sm);
+    color: var(--accent-color);
+  }
+  
+  /* Quiz Game */
+  .quiz-game {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+  }
+  
+  .timer {
+    font-size: var(--font-size-xl);
+    font-weight: bold;
+    color: var(--accent-color);
+  }
+  
+  .progress {
+    color: var(--text-light);
+  }
+  
+  .current-score {
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  
+  .question-card {
+    text-align: center;
+  }
+  
+  .question-card h3 {
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.4;
+  }
+  
+  .options {
+    display: grid;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+/* Cambiar el color del texto en los botones de opciones */
+.option-btn {
+    padding: var(--spacing-md);
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+    color: var(--primary-color); /* ← CAMBIAR A ROJO BORDÓ */
+    font-weight: 500; /* ← Mejor legibilidad */
+  }
+  
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--accent-color);
+    background: rgba(255, 26, 26, 0.1);
+  }
+  
+  .option-btn.correct {
+    background: rgba(255, 4, 4, 0.2);
+    border-color: #2ecc71;
+    color: #27ae60;
+  }
+  
+  .option-btn.incorrect {
+    background: rgba(231, 76, 60, 0.2);
+    border-color: #e74c3c;
+    color: #c0392b;
+  }
+  
+  .option-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+  .explanation {
+    background: rgba(219, 52, 52, 0.1);
+    border: 1px solid #3498db;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    text-align: left;
+  }
+  
+  .explanation h4 {
+    color: #3498db;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  /* Bug Hunt Game */
+  .bug-hunt-game {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .challenge-progress {
+    color: var(--text-light);
+  }
+  
+  .bug-challenge {
+    text-align: center;
+  }
+  
+  .bug-screenshot {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: var(--bg-secondary);
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: crosshair;
+    margin: var(--spacing-lg) 0;
+    overflow: hidden;
+  }
+  
+  .screenshot-placeholder {
+    font-size: 5rem;
+    opacity: 0.5;
+  }
+  
+  .found-bug {
+    position: absolute;
+    font-size: 1.5rem;
+    color: #2ecc71;
+    animation: bugFound 0.5s ease-out;
+    z-index: 10;
+  }
+  
+  @keyframes bugFound {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .bugs-found {
+    text-align: left;
+    margin-top: var(--spacing-lg);
+  }
+  
+  .bugs-found h4 {
+    color: var(--accent-color);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .bug-description {
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid #2ecc71;
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+  }
+  
+  /* Certificate Modal */
+  .certificate-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .certificate {
+    max-width: 500px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--bg-secondary), rgba(177, 15, 46, 0.1));
+    border: 2px solid var(--accent-color);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .certificate::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(var(--accent-color), transparent, transparent, var(--accent-color));
+    animation: rotate 4s linear infinite;
+    opacity: 0.1;
+  }
+  
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .certificate-header {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .certificate-badge {
+    font-size: 4rem;
+    margin: var(--spacing-md) 0;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
+  
+  .final-score {
+    font-size: var(--font-size-3xl);
+    color: var(--accent-color);
+    font-weight: bold;
+    margin: var(--spacing-lg) 0;
+    text-shadow: var(--neon-glow);
+  }
+  
+  .certificate-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+  }
+  
+  .certificate-actions .btn {
+    flex: 1;
+  }
+  
+  /* Back Button */
+  .back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 100;
+  }
+  
+  .back-btn:hover {
+    background: var(--accent-color);
+    color: white;
+    box-shadow: 0 0 15px rgba(255, 26, 75, 0.5);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .game-options {
+      grid-template-columns: 1fr;
+    }
+    
+    .game-header {
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+    
+    .certificate-actions {
+      flex-direction: column;
+    }
+    
+    .bug-screenshot {
+      height: 250px;
+    }
+    
+    .certificate {
+      margin: var(--spacing-md);
+    }
+  }
