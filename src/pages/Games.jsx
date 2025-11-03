@@ -3,7 +3,9 @@ import './Games.css'
 
 function Games() {
   const [currentGame, setCurrentGame] = useState('menu')
-  const [score, setScore] = useState(0)
+  const [quizScore, setQuizScore] = useState(0)        // Puntaje solo del quiz
+  const [mineSweeperScore, setMineSweeperScore] = useState(0)  // Puntaje solo del buscaminas
+  const [totalScore, setTotalScore] = useState(0)      // Puntaje total combinado
   const [level, setLevel] = useState(1)
   const [timeLeft, setTimeLeft] = useState(30)
   const [gameCompleted, setGameCompleted] = useState(false)
@@ -16,7 +18,6 @@ function Games() {
   const [flaggedCells, setFlaggedCells] = useState(new Set())
   const [gameOver, setGameOver] = useState(false)
   const [gameWon, setGameWon] = useState(false)
-  const [mineSweeperScore, setMineSweeperScore] = useState(0)
   const [startTime, setStartTime] = useState(null)
 
   // Quiz questions
@@ -74,6 +75,13 @@ function Games() {
       return () => clearTimeout(timer)
     }
   }, [timeLeft, currentGame, gameCompleted])
+
+  // Detectar cuando se completa un juego y generar certificado
+  useEffect(() => {
+    if (totalScore > 0 && !gameCompleted) {
+      generateCertificate()
+    }
+  }, [totalScore, gameCompleted])
 
   // Función de sonidos mejorada
   const playSound = (type) => {
@@ -139,30 +147,30 @@ function Games() {
     const bugCount = 10
     const checkmarkCount = 15
     
-// Crear board vacío (sin emojis iniciales)
-const board = Array(boardSize).fill().map(() => Array(boardSize).fill({ type: 'empty' }))
+    // Crear board vacío (sin emojis iniciales)
+    const board = Array(boardSize).fill().map(() => Array(boardSize).fill({ type: 'empty' }))
 
-// Colocar bugs (sin emojis)
-let bugsPlaced = 0
-while (bugsPlaced < bugCount) {
-  const row = Math.floor(Math.random() * boardSize)
-  const col = Math.floor(Math.random() * boardSize)
-  if (board[row][col].type === 'empty') {
-    board[row][col] = { type: 'bug' }
-    bugsPlaced++
-  }
-}
+    // Colocar bugs (sin emojis)
+    let bugsPlaced = 0
+    while (bugsPlaced < bugCount) {
+      const row = Math.floor(Math.random() * boardSize)
+      const col = Math.floor(Math.random() * boardSize)
+      if (board[row][col].type === 'empty') {
+        board[row][col] = { type: 'bug' }
+        bugsPlaced++
+      }
+    }
 
-// Colocar checkmarks (sin emojis)
-let checkmarksPlaced = 0
-while (checkmarksPlaced < checkmarkCount) {
-  const row = Math.floor(Math.random() * boardSize)
-  const col = Math.floor(Math.random() * boardSize)
-  if (board[row][col].type === 'empty') {
-    board[row][col] = { type: 'checkmark' }
-    checkmarksPlaced++
-  }
-}
+    // Colocar checkmarks (sin emojis)
+    let checkmarksPlaced = 0
+    while (checkmarksPlaced < checkmarkCount) {
+      const row = Math.floor(Math.random() * boardSize)
+      const col = Math.floor(Math.random() * boardSize)
+      if (board[row][col].type === 'empty') {
+        board[row][col] = { type: 'checkmark' }
+        checkmarksPlaced++
+      }
+    }
     
     setMineSweeperBoard(board)
     setRevealedCells(new Set())
@@ -175,8 +183,7 @@ while (checkmarksPlaced < checkmarkCount) {
 
   const startQuiz = () => {
     setCurrentGame('quiz')
-    setScore(0)
-    setLevel(1)
+    setQuizScore(0)  // Reset solo el puntaje del quiz
     setTimeLeft(30)
     setCurrentQuizQuestion(0)
     setGameCompleted(false)
@@ -185,7 +192,7 @@ while (checkmarksPlaced < checkmarkCount) {
 
   const startMineSweeper = () => {
     setCurrentGame('minesweeper')
-    setScore(0)
+    setMineSweeperScore(0)  // Reset solo el puntaje del buscaminas
     initializeMineSweeper()
   }
 
@@ -197,7 +204,7 @@ while (checkmarksPlaced < checkmarkCount) {
       playSound('correct')
       const timeBonus = timeLeft * 10
       const correctBonus = 100
-      setScore(prev => prev + correctBonus + timeBonus)
+      setQuizScore(prev => prev + correctBonus + timeBonus)
     } else {
       playSound('incorrect')
     }
@@ -209,7 +216,8 @@ while (checkmarksPlaced < checkmarkCount) {
         setShowExplanation(false)
         setTimeLeft(30)
       } else {
-        generateCertificate()
+        // Al terminar el quiz, añadir el puntaje del quiz al total
+        setTotalScore(prev => prev + quizScore + (timeLeft * 10) + 100)
       }
     }, 3000)
   }
@@ -248,13 +256,15 @@ while (checkmarksPlaced < checkmarkCount) {
         setMineSweeperScore(prev => prev + timeBonus)
         setGameWon(true)
         showBugNotification(`🏆 ¡Ganaste! +${timeBonus} puntos bonus por tiempo`, 'bonus')
-        setTimeout(() => generateCertificate(), 2000)
+        // Al ganar el buscaminas, añadir el puntaje al total
+        setTotalScore(prev => prev + mineSweeperScore + timeBonus + 100)
       }
     }
   }
 
   const generateCertificate = () => {
-    const finalScore = score + mineSweeperScore
+    // Usar el puntaje total acumulado
+    const finalScore = totalScore
     const certificates = [
       { title: "QA Novice", emoji: "🌱", color: "#ff6b6b" },
       { title: "Testing Apprentice", emoji: "🛠️", color: "#4ecdc4" },
@@ -269,11 +279,111 @@ while (checkmarksPlaced < checkmarkCount) {
   }
 
   const resetGame = () => {
+    // Reset completo de TODOS los estados
     setCurrentGame('menu')
-    setScore(0)
+    setQuizScore(0)
+    setMineSweeperScore(0)
+    setTotalScore(0)  // Reset completo del puntaje total
+    setLevel(1)
+    setTimeLeft(30)
     setGameCompleted(false)
     setCertificate(null)
     setNotification(null)
+    
+    // Reset estados del buscaminas
+    setMineSweeperBoard([])
+    setRevealedCells(new Set())
+    setFlaggedCells(new Set())
+    setGameOver(false)
+    setGameWon(false)
+    setStartTime(null)
+    
+    // Reset estados del quiz
+    setCurrentQuizQuestion(0)
+    setSelectedAnswer(null)
+    setShowExplanation(false)
+  }
+
+  const printCertificate = () => {
+    // Crear una ventana de impresión con el certificado
+    const printWindow = window.open('', '_blank', 'width=800,height=600')
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Certificado QA - Ernesto Vázquez</title>
+          <style>
+            body {
+              font-family: 'Arial', sans-serif;
+              text-align: center;
+              padding: 40px;
+              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              color: white;
+              margin: 0;
+            }
+            .certificate {
+              background: rgba(255, 255, 255, 0.1);
+              border-radius: 20px;
+              padding: 40px;
+              backdrop-filter: blur(10px);
+              border: 2px solid rgba(255, 255, 255, 0.3);
+              max-width: 600px;
+              margin: 0 auto;
+            }
+            .badge {
+              font-size: 4rem;
+              margin: 20px 0;
+            }
+            .score {
+              font-size: 2rem;
+              font-weight: bold;
+              margin: 20px 0;
+              color: #ffd700;
+            }
+            .title {
+              font-size: 1.5rem;
+              margin: 20px 0;
+            }
+            .name {
+              font-size: 1.2rem;
+              margin-bottom: 30px;
+              opacity: 0.9;
+            }
+            .footer {
+              margin-top: 40px;
+              font-size: 0.9rem;
+              opacity: 0.7;
+            }
+            @media print {
+              body { background: white !important; color: black !important; }
+              .certificate { background: white !important; border: 2px solid #333 !important; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="certificate">
+            <h1>🎉 Certificado de Excelencia QA</h1>
+            <div class="badge">${certificate.emoji}</div>
+            <h2 class="title">${certificate.title}</h2>
+            <p>Este certificado se otorga a</p>
+            <p class="name"><strong>Ernesto Vázquez</strong></p>
+            <p>Por completar exitosamente los Mini-Juegos QA</p>
+            <div class="score">${totalScore} puntos</div>
+            <p>Fecha: ${new Date().toLocaleDateString('es-ES')}</p>
+            <div class="footer">
+              Mini-Juegos QA - PortFolio 2.0<br>
+              QA Automation Engineer
+            </div>
+          </div>
+        </body>
+      </html>
+    `)
+    printWindow.document.close()
+    printWindow.focus()
+    setTimeout(() => {
+      printWindow.print()
+      printWindow.close()
+    }, 500)
   }
 
   return (
@@ -292,7 +402,7 @@ while (checkmarksPlaced < checkmarkCount) {
           {currentGame === 'menu' && (
             <div className="game-menu">
               <div className="score-display">
-                <h3>🏆 Puntaje Total: <span className="score">{score + mineSweeperScore}</span></h3>
+                <h3>🏆 Puntaje Total: <span className="score">{totalScore}</span></h3>
               </div>
               
               <div className="game-options">
@@ -326,7 +436,7 @@ while (checkmarksPlaced < checkmarkCount) {
                 <div className="progress">
                   Pregunta {currentQuizQuestion + 1} de {quizQuestions.length}
                 </div>
-                <div className="current-score">🏆 {score}</div>
+                <div className="current-score">🏆 {quizScore}</div>
               </div>
 
               <div className="question-card card">
@@ -373,57 +483,58 @@ while (checkmarksPlaced < checkmarkCount) {
               </div>
 
               <div className="minesweeper-board">
-  {mineSweeperBoard.map((row, rowIndex) => (
-    <div key={rowIndex} className="board-row">
-      {row.map((cell, colIndex) => {
-        const cellKey = `${rowIndex}-${colIndex}`
-        const isRevealed = revealedCells.has(cellKey)
-        const showAllBugs = gameOver || gameWon
-        
-        // Determinar qué mostrar
-        let displayContent = '⬜' // Cuadrado vacío por defecto
-        let cellClass = 'cell'
-        
-        if (isRevealed) {
-          if (cell.type === 'checkmark') {
-            displayContent = '✅'
-            cellClass += ' revealed checkmark'
-          } else if (cell.type === 'bug') {
-            displayContent = '🐛'
-            cellClass += ' revealed bug exploded'
-          } else {
-            displayContent = '⬛'
-            cellClass += ' revealed empty'
-          }
-        } else if (showAllBugs && cell.type === 'bug') {
-          // Mostrar bugs no revelados cuando pierdes
-          displayContent = '🐛'
-          cellClass += ' revealed bug revealed-bug'
-        } else {
-          cellClass += ' hidden'
-        }
-        
-        return (
-          <div
-            key={colIndex}
-            className={cellClass}
-            onClick={() => handleCellClick(rowIndex, colIndex)}
-          >
-            {displayContent}
-          </div>
-        )
-      })}
-    </div>
-  ))}
-</div>
+                {mineSweeperBoard.map((row, rowIndex) => (
+                  <div key={rowIndex} className="board-row">
+                    {row.map((cell, colIndex) => {
+                      const cellKey = `${rowIndex}-${colIndex}`
+                      const isRevealed = revealedCells.has(cellKey)
+                      const showAllBugs = gameOver || gameWon
+                      
+                      // Determinar qué mostrar
+                      let displayContent = '⬜' // Cuadrado vacío por defecto
+                      let cellClass = 'cell'
+                      
+                      if (isRevealed) {
+                        if (cell.type === 'checkmark') {
+                          displayContent = '✅'
+                          cellClass += ' revealed checkmark'
+                        } else if (cell.type === 'bug') {
+                          displayContent = '🐛'
+                          cellClass += ' revealed bug exploded'
+                        } else {
+                          displayContent = '⬛'
+                          cellClass += ' revealed empty'
+                        }
+                      } else if (showAllBugs && cell.type === 'bug') {
+                        // Mostrar bugs no revelados cuando pierdes
+                        displayContent = '🐛'
+                        cellClass += ' revealed bug revealed-bug'
+                      } else {
+                        cellClass += ' hidden'
+                      }
+                      
+                      return (
+                        <div
+                          key={colIndex}
+                          className={cellClass}
+                          onClick={() => handleCellClick(rowIndex, colIndex)}
+                        >
+                          {displayContent}
+                        </div>
+                      )
+                    })}
+                  </div>
+                ))}
+              </div>
 
               <div className="game-instructions">
-                <h4>📋 Cómo jugar:</h4>
+                <h4>📋 Cómo jugar Buscaminas QA:</h4>
                 <ul>
-                  <li>✅ <strong>Checkmarks verdes:</strong> Haz click para ganar puntos</li>
-                  <li>🐛 <strong>Bugs rojos:</strong> Evítalos o el juego termina</li>
-                  <li>🎯 <strong>Objetivo:</strong> Encuentra todos los 15 checkmarks</li>
-                  <li>⏱️ <strong>Bonus:</strong> Más rápido = más puntos extra</li>
+                  <li>✅ <strong>Checkmarks verdes:</strong> Haz click para ganar 100 puntos</li>
+                  <li>🐛 <strong>Bugs rojos:</strong> Si haces click, ¡pierdes el juego!</li>
+                  <li>🎯 <strong>Objetivo:</strong> Encuentra todos los 15 checkmarks sin activar bugs</li>
+                  <li>⏱️ <strong>Bonus:</strong> Más rápido = más puntos extra por tiempo</li>
+                  <li>💡 <strong>Estrategia:</strong> Recuerda posiciones y evita repetir clicks</li>
                 </ul>
               </div>
             </div>
@@ -441,13 +552,13 @@ while (checkmarksPlaced < checkmarkCount) {
                 
                 <h3>{certificate.title}</h3>
                 <p>Has completado el Mini-Juego QA con un puntaje de:</p>
-                <div className="final-score">{score + mineSweeperScore} puntos</div>
+                <div className="final-score">{totalScore} puntos</div>
                 
                 <div className="certificate-actions">
                   <button className="btn" onClick={resetGame}>
                     🎮 Jugar de Nuevo
                   </button>
-                  <button className="btn btn-secondary" onClick={() => window.print()}>
+                  <button className="btn btn-secondary" onClick={printCertificate}>
                     🖨️ Imprimir Certificado
                   </button>
                 </div>

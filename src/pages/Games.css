@@ -5,7 +5,7 @@
 
 .games-hero {
   text-align: center;
-  background: linear-gradient(135deg, rgba(177, 15, 46, 0.1), rgba(255, 26, 75, 0.1));
+  background: linear-gradient(135deg, rgb(0, 0, 0), rgba(255, 26, 75, 0.1));
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -326,38 +326,38 @@
 }
 
 /* Certificate Modal */
-.certificate-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+/* Certificate Modal - Corregir interferencia de efectos de hover */
+.certificate-modal .certificate.card {
+  pointer-events: auto !important;
 }
 
-.certificate {
-  max-width: 500px;
-  text-align: center;
-  background: linear-gradient(135deg, var(--bg-secondary), rgba(177, 15, 46, 0.1));
-  border: 2px solid var(--accent-color);
+.certificate-modal .certificate.card:hover {
+  transform: none !important; /* Desactivar movimiento hacia arriba */
+  box-shadow: var(--shadow-md) !important; /* Mantener shadow original */
+}
+
+/* Asegurar que los botones funcionen correctamente */
+.certificate-modal .certificate-actions {
+  pointer-events: auto;
   position: relative;
-  overflow: hidden;
+  z-index: 10;
 }
 
-.certificate::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(var(--accent-color), transparent, transparent, var(--accent-color));
-  animation: rotate 4s linear infinite;
-  opacity: 0.1;
+.certificate-modal .certificate-actions .btn {
+  pointer-events: auto;
+  cursor: pointer;
+  position: relative;
+  z-index: 1000;
+  transition: all 0.2s ease;
+}
+
+.certificate-modal .certificate-actions .btn:hover {
+  transform: scale(1.05); /* Efecto sutil solo para botones */
+  box-shadow: 0 4px 12px rgba(255, 26, 75, 0.3);
+}
+
+.certificate-modal .certificate-actions .btn:active {
+  transform: scale(0.98); /* Feedback visual al presionar */
 }
 
 @keyframes rotate {

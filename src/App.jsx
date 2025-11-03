@@ -8,7 +8,7 @@ import About from './pages/About';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Projects from './pages/Projects';
-import Games from './pages/Games'; // ← AGREGAR ESTA LÍNEA
+import Games from './pages/Games';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -101,26 +101,28 @@ function App() {
   }, []);
 
   return (
-// Quita el basename para que funcione en la raíz
-<Router>
-  <div ref={containerRef} className="app">
-    {/* Stream de peticiones HTTP en el fondo */}
-    <div className="http-stream" id="http-stream"></div>
-    
-    <Header />
-    <main className="main-content">
-    <Routes>
-  <Route path="/" element={<Home />} />
-  <Route path="/about" element={<About />} />
-  <Route path="/blog" element={<Blog />} />
-  <Route path="/blog/:id" element={<BlogPost />} /> {/* ← AGREGAR ESTA LÍNEA */}
-  <Route path="/projects" element={<Projects />} />
-  <Route path="/games" element={<Games />} />
-</Routes>
-    </main>
-    <Footer />
-  </div>
-</Router>
+    <Router>
+      <div ref={containerRef} className="app">
+        {/* Nueva capa de plasma - Movimiento orgánico tipo lava */}
+        <div className="plasma-background"></div>
+        
+        {/* Stream de peticiones HTTP en el fondo */}
+        <div className="http-stream" id="http-stream"></div>
+        
+        <Header />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/games" element={<Games />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
